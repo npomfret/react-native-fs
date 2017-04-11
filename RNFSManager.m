@@ -477,6 +477,23 @@ RCT_EXPORT_METHOD(pathForBundle:(NSString *)bundleNamed
   }
 }
 
+RCT_EXPORT_METHOD(pathForAppGroup:(NSString *)groupName
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    NSURL* containerURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupName];
+    if(containerURL) {
+        resolve([containerURL path]);
+    } else {
+        NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain
+                                             code:NSFileNoSuchFileError
+                                         userInfo:nil];
+
+        [self reject:reject withError:error];
+    }
+}
+
 RCT_EXPORT_METHOD(getFSInfo:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   unsigned long long totalSpace = 0;

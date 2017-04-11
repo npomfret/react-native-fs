@@ -534,6 +534,10 @@ Percentage can be computed easily by dividing `totalBytesSent` by `totalBytesExp
 
 Abort the current upload job with this ID.
 
+### (iOS only) `pathForAppGroup(appGroupName: string): Promise<void>`
+
+Returns the shared directory path for the specified app group.
+
 ### `getFSInfo(): Promise<FSInfoResult>`
 
 Returns an object with the following properties:
